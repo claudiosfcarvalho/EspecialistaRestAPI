@@ -6,7 +6,8 @@ import com.claudiowork.algafood.di.modelo.Cliente;
 
 public class AtivacaoClienteService {
 
-	@Autowired
+	//da para adicionar a opcao required com false quando nao quiser que a instancia nao seja feita
+	@Autowired//(required = false)
 	private Notificador notificador;
 
 //	@Autowired
@@ -21,7 +22,10 @@ public class AtivacaoClienteService {
 	
 	public void ativar(Cliente cliente) {
 		cliente.ativar();
-		notificador.notificar(cliente, "Seu cadastro no sistema está ativo!");
+		if (notificador != null)
+			notificador.notificar(cliente, "Seu cadastro no sistema está ativo!");
+		else
+			System.out.println("Não existe notificador, mas cliente foi ativado");
 	}
 
 //	@Autowired
