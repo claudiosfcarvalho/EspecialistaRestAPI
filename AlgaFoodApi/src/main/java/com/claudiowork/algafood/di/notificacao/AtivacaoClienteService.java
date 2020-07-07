@@ -12,15 +12,15 @@ public class AtivacaoClienteService {
 
 	//da para adicionar a opcao required com false quando nao quiser que a instancia nao seja feita
 	@Autowired//(required = false)
-	private List<Notificador> notificadores;
-	//private Notificador notificador;
+	//private List<Notificador> notificadores;
+	private Notificador notificador;
 
 	public void ativar(Cliente cliente) {
 		cliente.ativar();
-		//implementacao dupla por email e sms com a solução: updating the consumer to accept multiple beans
-		for (Notificador notificador: notificadores) {
+//		implementacao dupla por email e sms com a solução: updating the consumer to accept multiple beans
+//		for (Notificador notificador: notificadores) {
 			notificador.notificar(cliente, "Seu cadastro no sistema está ativo!");
-		}
+//		}
 	}
 
 
