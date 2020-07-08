@@ -1,11 +1,12 @@
 package com.claudiowork.algafood.di.notificacao;
 
-import org.springframework.context.annotation.Primary;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.claudiowork.algafood.di.modelo.Cliente;
 
-@Primary //utilizado para desambiguar e coloca este como primeiro bean
+//@Primary //utilizado para desambiguar e coloca este como primeiro bean
+@Qualifier("email")
 @Component
 public class NotificadorEmail implements Notificador {
 

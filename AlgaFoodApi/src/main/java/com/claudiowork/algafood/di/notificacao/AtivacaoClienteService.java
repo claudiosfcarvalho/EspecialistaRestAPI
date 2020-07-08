@@ -3,6 +3,7 @@ package com.claudiowork.algafood.di.notificacao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.claudiowork.algafood.di.modelo.Cliente;
@@ -13,6 +14,7 @@ public class AtivacaoClienteService {
 	//da para adicionar a opcao required com false quando nao quiser que a instancia nao seja feita
 	@Autowired//(required = false)
 	//private List<Notificador> notificadores;
+	@Qualifier("email") //aqui indica para o spring usar o qualificador email ou sms(de acordo com o que é definido
 	private Notificador notificador;
 
 	public void ativar(Cliente cliente) {
