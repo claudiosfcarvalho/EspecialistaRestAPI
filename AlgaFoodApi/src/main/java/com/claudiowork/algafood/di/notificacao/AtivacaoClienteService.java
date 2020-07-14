@@ -14,7 +14,8 @@ public class AtivacaoClienteService {
 	//da para adicionar a opcao required com false quando nao quiser que a instancia nao seja feita
 	@Autowired//(required = false)
 	//private List<Notificador> notificadores;
-	@Qualifier("email") //aqui indica para o spring usar o qualificador email ou sms(de acordo com o que é definido
+	//@Qualifier("email") //aqui indica para o spring usar o qualificador email ou sms(de acordo com o que é definido
+	@TipoDoNotificador(NivelUrgencia.URGENTE)
 	private Notificador notificador;
 
 	public void ativar(Cliente cliente) {

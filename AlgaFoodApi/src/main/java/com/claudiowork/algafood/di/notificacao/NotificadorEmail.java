@@ -5,8 +5,9 @@ import org.springframework.stereotype.Component;
 
 import com.claudiowork.algafood.di.modelo.Cliente;
 
+@TipoDoNotificador(NivelUrgencia.NORMAL)
 //@Primary //utilizado para desambiguar e coloca este como primeiro bean
-@Qualifier("email")
+//@Qualifier("email")
 @Component
 public class NotificadorEmail implements Notificador {
 
