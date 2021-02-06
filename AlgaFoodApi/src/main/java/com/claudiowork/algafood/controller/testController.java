@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.claudiowork.algafood.di.modelo.Cliente;
 import com.claudiowork.algafood.di.notificacao.AtivacaoClienteService;
 
-@Controller()
+@Controller
 public class testController {
 
 	@Autowired
