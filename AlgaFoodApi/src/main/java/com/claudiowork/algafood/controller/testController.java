@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.claudiowork.algafood.di.modelo.Cliente;
-import com.claudiowork.algafood.di.notificacao.AtivacaoClienteService;
+import com.claudiowork.algafood.di.service.AtivacaoClienteService;
 
 @Controller
 public class testController {

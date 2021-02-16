@@ -3,8 +3,8 @@ package com.claudiowork.algafood.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.claudiowork.algafood.di.notificacao.AtivacaoClienteService;
 import com.claudiowork.algafood.di.notificacao.Notificador;
+import com.claudiowork.algafood.di.service.AtivacaoClienteService;
 
 //@Configuration
 public class ServiceConfig {
