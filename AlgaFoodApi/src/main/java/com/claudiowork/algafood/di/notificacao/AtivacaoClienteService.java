@@ -15,7 +15,7 @@ public class AtivacaoClienteService {
 	@Autowired//(required = false)
 	//private List<Notificador> notificadores;
 	//@Qualifier("email") //aqui indica para o spring usar o qualificador email ou sms(de acordo com o que é definido
-	@TipoDoNotificador(NivelUrgencia.URGENTE)
+	@TipoDoNotificador(NivelUrgencia.NORMAL)
 	private Notificador notificador;
 
 	public void ativar(Cliente cliente) {
