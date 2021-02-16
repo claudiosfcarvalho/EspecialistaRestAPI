@@ -1,9 +1,9 @@
 package com.claudiowork.algafood.di.notificacao;
 
-import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.claudiowork.algafood.di.modelo.Cliente;
@@ -26,7 +26,28 @@ public class AtivacaoClienteService {
 //		}
 	}
 
+	//Call back - método 1
+	//da forma abaixo é possível obter o momento após a construção da classe
+	@PostConstruct
+	public void init() {
+		System.out.println("init");
+	}
 
+	//da forma abaixo é poss[ivel obter o momento pré destruição da classe
+	@PreDestroy
+	public void destroy() {
+		System.out.println("destroy");
+	}
+	//Callback - método 2
+	//é possível usar estes metodos sem estas anotações quando o bean é definido na classe
+	//de configuração, desta forma ficaria assim:
+	// @Configuration
+	// public classe Config {
+	//    @Bean(initMethod = "init", destroyMethod = "destroy")
+	//    public AtivacaoClienteService ativacaoClienteService(){
+	//        return new AtivacaoClienteService();
+	//    }
+	// }
 /*
  * Anotações de estudo
  * 
