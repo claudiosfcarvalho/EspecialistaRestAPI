@@ -12,13 +12,13 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Cozinha {
+public class FormaPagamento {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
-	long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	Long id;
 	
 	@Column(nullable = false)
-	String nome;
+	String descricao;
 }
