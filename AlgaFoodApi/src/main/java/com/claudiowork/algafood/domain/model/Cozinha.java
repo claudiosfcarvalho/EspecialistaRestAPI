@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@JsonRootName("gastronomia") //o mesmo que JsonProperty mas para o nome do objeto, visivel quando for xml
+@JsonRootName("cozinha") //o mesmo que JsonProperty mas para o nome do objeto, visivel quando for xml
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
@@ -25,7 +25,7 @@ public class Cozinha {
 	long id;
 	
 	//@JsonIgnore //não mostra o campo no retorno
-	@JsonProperty(value = "titulo") //define o nome do campo quando for serializado
+	//@JsonProperty(value = "titulo") //define o nome do campo quando for serializado
 	@Column(nullable = false)
 	String nome;
 }
