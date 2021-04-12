@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -71,11 +72,26 @@ public class CozinhaController {
 		return ResponseEntity.notFound().build();
 	}
 
-	@GetMapping("/testeLocation/{id}")
-	public ResponseEntity<Cozinha> testeLocation(@PathVariable Long id) {
-		Cozinha c = cozinhaRepository.buscar(id);
-		HttpHeaders headers = new HttpHeaders();
-		headers.add(HttpHeaders.LOCATION, "http://localhost:8080/cozinhas");
-		return ResponseEntity.status(HttpStatus.FOUND).headers(headers).build();
+//	@GetMapping("/testeLocation/{id}")
+//	public ResponseEntity<Cozinha> testeLocation(@PathVariable Long id) {
+//		Cozinha c = cozinhaRepository.buscar(id);
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.add(HttpHeaders.LOCATION, "http://localhost:8080/cozinhas");
+//		return ResponseEntity.status(HttpStatus.FOUND).headers(headers).build();
+//	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Cozinha> remover(@PathVariable Long id) {
+		try {
+			Cozinha c = cozinhaRepository.buscar(id);
+			if (c != null) {
+				cozinhaRepository.remover(c);
+				return ResponseEntity.noContent().build();
+			}
+			return ResponseEntity.notFound().build();
+		} catch (DataIntegrityViolationException e) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).build();
+		}
 	}
+
 }
