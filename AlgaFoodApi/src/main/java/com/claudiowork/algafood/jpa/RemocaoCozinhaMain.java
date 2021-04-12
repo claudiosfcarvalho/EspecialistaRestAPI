@@ -19,7 +19,7 @@ public class RemocaoCozinhaMain {
 		Cozinha c1 = new Cozinha();
 		c1.setId(1L);
 		System.out.printf("Cozinha com o id %d será removida .", c1.getId());
-		cadCozinha.remover(c1);
+		cadCozinha.remover(c1.getId());
 	}
 
 }
