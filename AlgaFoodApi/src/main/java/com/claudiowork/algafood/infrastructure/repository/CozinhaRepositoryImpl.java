@@ -31,6 +31,10 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
 	@Override
 	@Transactional
 	public Cozinha salvar(Cozinha cozinha) {
+		if (cozinha != null) {
+			Cozinha cValid = new Cozinha();
+			cValid.setNome(null);
+		}
 		return manager.merge(cozinha);
 	}
 
