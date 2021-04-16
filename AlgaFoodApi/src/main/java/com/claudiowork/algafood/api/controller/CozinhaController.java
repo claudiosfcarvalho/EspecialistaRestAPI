@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.claudiowork.algafood.domain.exception.EntidadeEmUsoException;
@@ -70,6 +71,12 @@ public class CozinhaController {
 		} catch (EntidadeEmUsoException e) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
 		}
+	}
+	
+	// apenas estudo
+	@GetMapping("/consultaPorNome")
+	public List<Cozinha> cozinhasPorNomeEstudo(@RequestParam("nome") String nome) {
+		return cozinhaService.consultaPorNomeEstudo(nome);
 	}
 
 }

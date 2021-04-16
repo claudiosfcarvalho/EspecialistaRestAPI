@@ -30,6 +30,10 @@ public class CadastroCozinhaService {
 		return cozinhaRepository.buscar(id);
 	}
 
+	public List<Cozinha> consultaPorNomeEstudo(String nome) {
+		return cozinhaRepository.consultarPorNomeEstudo(nome);
+	}
+	
 	public void remover(Long id) {
 		try {
 

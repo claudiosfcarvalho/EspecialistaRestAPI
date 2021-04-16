@@ -6,13 +6,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.claudiowork.algafood.domain.model.Cozinha;
 import com.claudiowork.algafood.domain.repository.CozinhaRepository;
 
-@Component
+@Repository
 public class CozinhaRepositoryImpl implements CozinhaRepository {
 
 	@PersistenceContext
@@ -48,6 +48,14 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
 		}
 		
 		manager.remove(c);
+	}
+
+	@Override
+	public List<Cozinha> consultarPorNomeEstudo(String nome) {
+		return manager.createQuery("from Cozinha where nome like :nome",Cozinha.class)
+				.setParameter("nome", "%" + nome + "%")
+				.getResultList();
+				
 	}
 
 }
