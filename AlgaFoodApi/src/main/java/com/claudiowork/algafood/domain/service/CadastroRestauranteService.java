@@ -55,4 +55,5 @@ public class CadastroRestauranteService {
 					String.format("Restaurante de código %d não pode ser removida, pois está em uso", id));
 		}
 	}
+			
 }

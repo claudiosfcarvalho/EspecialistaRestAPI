@@ -31,9 +31,6 @@ public class CadastroCozinhaService {
 		return cozinhaRepository.findById(id);
 	}
 
-//	public List<Cozinha> consultaPorNomeEstudo(String nome) {
-//		return cozinhaRepository.consultarPorNomeEstudo(nome);
-//	}
 	
 	public void remover(Long id) {
 		try {
@@ -48,5 +45,5 @@ public class CadastroCozinhaService {
 					String.format("Cozinha de código %d não pode ser removida, pois está em uso", id));
 		}
 	}
-
+	
 }
