@@ -1,6 +1,7 @@
 package com.claudiowork.algafood.api.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +35,10 @@ public class EstadoController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Estado> buscar(@PathVariable Long id) {
-		Estado estado = estadoService.buscar(id);
+		Optional<Estado> estado = estadoService.buscar(id);
 
-		if (estado != null) {
-			return ResponseEntity.ok(estado);
+		if (estado.isPresent()) {
+			return ResponseEntity.ok(estado.get());
 		}
 
 		return ResponseEntity.notFound().build();
@@ -52,11 +53,10 @@ public class EstadoController {
 	@PutMapping("/{id}")
 	public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody Estado estado) {
 		try {
-			Estado estAtual = estadoService.buscar(id);
-			if (estAtual != null) {
-				BeanUtils.copyProperties(estado, estAtual, "id");
-				estado = estadoService.salvar(estAtual);
-				return ResponseEntity.status(HttpStatus.OK).body(estado);
+			Optional<Estado> estAtual = estadoService.buscar(id);
+			if (estAtual.isPresent()) {
+				BeanUtils.copyProperties(estado, estAtual.get(), "id");
+				return ResponseEntity.status(HttpStatus.OK).body(estadoService.salvar(estAtual.get()));
 			}
 			return ResponseEntity.notFound().build();
 		} catch (EntidadeNaoEncontradaException e) {

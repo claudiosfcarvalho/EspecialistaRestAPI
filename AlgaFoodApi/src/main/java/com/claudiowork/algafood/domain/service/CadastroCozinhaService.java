@@ -1,6 +1,7 @@
 package com.claudiowork.algafood.domain.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -19,25 +20,25 @@ public class CadastroCozinhaService {
 	private CozinhaRepository cozinhaRepository;
 
 	public List<Cozinha> listar() {
-		return cozinhaRepository.listar();
+		return cozinhaRepository.findAll();
 	}
 
 	public Cozinha salvar(Cozinha cozinha) {
-		return cozinhaRepository.salvar(cozinha);
+		return cozinhaRepository.save(cozinha);
 	}
 
-	public Cozinha buscar(Long id) {
-		return cozinhaRepository.buscar(id);
+	public Optional<Cozinha> buscar(Long id) {
+		return cozinhaRepository.findById(id);
 	}
 
-	public List<Cozinha> consultaPorNomeEstudo(String nome) {
-		return cozinhaRepository.consultarPorNomeEstudo(nome);
-	}
+//	public List<Cozinha> consultaPorNomeEstudo(String nome) {
+//		return cozinhaRepository.consultarPorNomeEstudo(nome);
+//	}
 	
 	public void remover(Long id) {
 		try {
 
-			cozinhaRepository.remover(id);
+			cozinhaRepository.deleteById(id);
 
 		} catch (EmptyResultDataAccessException e) {
 			throw new EntidadeNaoEncontradaException(String.format("Cozinha de código %d não encontrada", id));

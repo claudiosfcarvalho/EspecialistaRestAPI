@@ -1,6 +1,7 @@
 package com.claudiowork.algafood.api.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +35,10 @@ public class CidadeController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Cidade> buscar(@PathVariable Long id) {
-		Cidade cidade = cidadeService.buscar(id);
+		Optional<Cidade> cidade = cidadeService.buscar(id);
 
-		if (cidade != null) {
-			return ResponseEntity.ok(cidade);
+		if (cidade.isPresent()) {
+			return ResponseEntity.ok(cidade.get());
 		}
 
 		return ResponseEntity.notFound().build();
@@ -56,11 +57,10 @@ public class CidadeController {
 	@PutMapping("/{id}")
 	public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody Cidade cidade) {
 		try {
-			Cidade cidAtual = cidadeService.buscar(id);
-			if (cidAtual != null) {
-				BeanUtils.copyProperties(cidade, cidAtual, "id");
-				cidade = cidadeService.salvar(cidAtual);
-				return ResponseEntity.status(HttpStatus.OK).body(cidade);
+			Optional<Cidade> cidAtual = cidadeService.buscar(id);
+			if (cidAtual.isPresent()) {
+				BeanUtils.copyProperties(cidade, cidAtual.get(), "id");
+				return ResponseEntity.status(HttpStatus.OK).body(cidadeService.salvar(cidAtual.get()));
 			}
 			return ResponseEntity.notFound().build();
 		} catch (EntidadeNaoEncontradaException e) {

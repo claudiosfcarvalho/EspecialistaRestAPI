@@ -1,6 +1,7 @@
 package com.claudiowork.algafood.api.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.claudiowork.algafood.domain.exception.EntidadeEmUsoException;
@@ -35,9 +35,9 @@ public class CozinhaController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Cozinha> buscar(@PathVariable Long id) {
-		Cozinha c = cozinhaService.buscar(id);
-		if (c != null) {
-			return ResponseEntity.ok(c);
+		Optional<Cozinha> c = cozinhaService.buscar(id);
+		if (c.isPresent()) {
+			return ResponseEntity.ok(c.get());
 		}
 		return ResponseEntity.notFound().build();
 	}
@@ -50,11 +50,10 @@ public class CozinhaController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Cozinha> atualizar(@PathVariable Long id, @RequestBody Cozinha cozinha) {
-		Cozinha c = cozinhaService.buscar(id);
-		if (c != null) {
-			BeanUtils.copyProperties(cozinha, c, "id");
-			cozinha = cozinhaService.salvar(c);
-			return ResponseEntity.status(HttpStatus.OK).body(c);
+		Optional<Cozinha> c = cozinhaService.buscar(id);
+		if (c.isPresent()) {
+			BeanUtils.copyProperties(cozinha, c.get(), "id");
+			return ResponseEntity.status(HttpStatus.OK).body(cozinhaService.salvar(c.get()));
 		}
 		return ResponseEntity.notFound().build();
 	}
@@ -73,10 +72,10 @@ public class CozinhaController {
 		}
 	}
 	
-	// apenas estudo
-	@GetMapping("/consultaPorNome")
-	public List<Cozinha> cozinhasPorNomeEstudo(@RequestParam("nome") String nome) {
-		return cozinhaService.consultaPorNomeEstudo(nome);
-	}
+//	// apenas estudo
+//	@GetMapping("/consultaPorNome")
+//	public List<Cozinha> cozinhasPorNomeEstudo(@RequestParam("nome") String nome) {
+//		return cozinhaService.consultaPorNomeEstudo(nome);
+//	}
 
 }
