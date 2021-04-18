@@ -69,4 +69,10 @@ public class TestController {
 	public Integer restauranteCount(@RequestParam("cozinhaId") Long cozinhaId) {
 		return restauranteRepository.countByCozinhaId(cozinhaId);
 	}
+	
+	@GetMapping("/consultaPorNomeRestaurante")
+	public List<Restaurante> cozinhaPorNomeRestaurante(@RequestParam("nome") String nome,
+			@RequestParam("cozinhaId") Long cozinhaId) {
+		return restauranteRepository.consultaPorNome(nome, cozinhaId);
+	}
 }
