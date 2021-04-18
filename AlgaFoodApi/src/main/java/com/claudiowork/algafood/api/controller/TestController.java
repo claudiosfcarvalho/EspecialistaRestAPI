@@ -54,25 +54,30 @@ public class TestController {
 	public Optional<Restaurante> restaurantePrimeiroPorNome(@RequestParam("nome") String nome) {
 		return restauranteRepository.findFirstByNomeContaining(nome);
 	}
-	
+
 	@GetMapping("/consultaRestaurantePorNomeTop2")
 	public List<Restaurante> restaurantePorNomeTop2(@RequestParam("nome") String nome) {
 		return restauranteRepository.findTop2ByNomeContaining(nome);
 	}
-	
+
 	@GetMapping("/consultaRestaurantePorNomeExists")
 	public Boolean restaurantePorNomeExists(@RequestParam("nome") String nome) {
 		return restauranteRepository.existsByNome(nome);
 	}
-	
+
 	@GetMapping("/consultaRestauranteCount")
 	public Integer restauranteCount(@RequestParam("cozinhaId") Long cozinhaId) {
 		return restauranteRepository.countByCozinhaId(cozinhaId);
 	}
-	
+
 	@GetMapping("/consultaPorNomeRestaurante")
 	public List<Restaurante> cozinhaPorNomeRestaurante(@RequestParam("nome") String nome,
 			@RequestParam("cozinhaId") Long cozinhaId) {
 		return restauranteRepository.consultaPorNome(nome, cozinhaId);
+	}
+
+	@GetMapping("/consultaRestaurantePorTaxaENome")
+	public List<Restaurante> restaurantesPorFaixaTaxa(String nome, BigDecimal taxaInicial, BigDecimal taxaFinal) {
+		return restauranteRepository.find(nome, taxaInicial, taxaFinal);
 	}
 }
