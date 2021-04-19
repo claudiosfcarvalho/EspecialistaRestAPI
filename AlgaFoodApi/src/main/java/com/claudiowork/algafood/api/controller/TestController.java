@@ -13,6 +13,8 @@ import com.claudiowork.algafood.domain.model.Cozinha;
 import com.claudiowork.algafood.domain.model.Restaurante;
 import com.claudiowork.algafood.domain.repository.CozinhaRepository;
 import com.claudiowork.algafood.domain.repository.RestauranteRepository;
+import com.claudiowork.algafood.infrastructure.repository.spec.RestauranteComFreteGratisSpec;
+import com.claudiowork.algafood.infrastructure.repository.spec.RestauranteComNomeSemelhanteSpec;
 
 @RestController
 public class TestController {
@@ -79,5 +81,13 @@ public class TestController {
 	@GetMapping("/consultaRestaurantePorTaxaENome")
 	public List<Restaurante> restaurantesPorFaixaTaxa(String nome, BigDecimal taxaInicial, BigDecimal taxaFinal) {
 		return restauranteRepository.find(nome, taxaInicial, taxaFinal);
+	}
+	
+	//padrao DDD Specifications
+	@GetMapping("/consultaRestauranteComFreteGratis")
+	public List<Restaurante> restaurantesComFreteGratis(String nome) {
+		var comFreteGratis = new RestauranteComFreteGratisSpec();
+		var comNomeSemelhante = new RestauranteComNomeSemelhanteSpec(nome);
+		return restauranteRepository.findAll(comFreteGratis.and(comNomeSemelhante));
 	}
 }
