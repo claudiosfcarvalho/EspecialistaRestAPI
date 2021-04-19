@@ -1,8 +1,5 @@
 package com.claudiowork.algafood.api.controller;
 
-import static com.claudiowork.algafood.infrastructure.repository.spec.RestauranteSpecs.comFreteGratis;
-import static com.claudiowork.algafood.infrastructure.repository.spec.RestauranteSpecs.comNomeSemelhante;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -88,5 +85,15 @@ public class TestController {
 	@GetMapping("/consultaRestauranteComFreteGratis")
 	public List<Restaurante> restaurantesComFreteGratis(String nome) {
 		return restauranteRepository.findComFreteGratis(nome);
+	}
+	
+	@GetMapping("/consultaPrimeiroRestaurante")
+	public Optional<Restaurante> consultaPrimeiroRestaurante() {
+		return restauranteRepository.buscarPrimeiro();
+	}
+	
+	@GetMapping("/consultaPrimeiraCozinha")
+	public Optional<Cozinha> consultaPrimeiraCozinha() {
+		return cozinhaRepository.buscarPrimeiro();
 	}
 }
