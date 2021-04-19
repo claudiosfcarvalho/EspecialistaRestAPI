@@ -1,5 +1,8 @@
 package com.claudiowork.algafood.api.controller;
 
+import static com.claudiowork.algafood.infrastructure.repository.spec.RestauranteSpecs.comFreteGratis;
+import static com.claudiowork.algafood.infrastructure.repository.spec.RestauranteSpecs.comNomeSemelhante;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -13,8 +16,6 @@ import com.claudiowork.algafood.domain.model.Cozinha;
 import com.claudiowork.algafood.domain.model.Restaurante;
 import com.claudiowork.algafood.domain.repository.CozinhaRepository;
 import com.claudiowork.algafood.domain.repository.RestauranteRepository;
-import com.claudiowork.algafood.infrastructure.repository.spec.RestauranteComFreteGratisSpec;
-import com.claudiowork.algafood.infrastructure.repository.spec.RestauranteComNomeSemelhanteSpec;
 
 @RestController
 public class TestController {
@@ -86,8 +87,6 @@ public class TestController {
 	//padrao DDD Specifications
 	@GetMapping("/consultaRestauranteComFreteGratis")
 	public List<Restaurante> restaurantesComFreteGratis(String nome) {
-		var comFreteGratis = new RestauranteComFreteGratisSpec();
-		var comNomeSemelhante = new RestauranteComNomeSemelhanteSpec(nome);
-		return restauranteRepository.findAll(comFreteGratis.and(comNomeSemelhante));
+		return restauranteRepository.findAll(comFreteGratis().and(comNomeSemelhante(nome)));
 	}
 }
