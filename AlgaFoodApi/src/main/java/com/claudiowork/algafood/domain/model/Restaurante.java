@@ -21,15 +21,15 @@ public class Restaurante {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
-	long id;
+	private long id;
 	
 	@Column(nullable = false)
-	String nome;
+	private String nome;
 	
 	@Column(name = "taxa_frete", nullable = false)
-	BigDecimal taxaFrete;
+	private BigDecimal taxaFrete;
 	
 	@ManyToOne
 	@JoinColumn(name = "cozinha_id", nullable = false)//forçar um nome específico para coluna para fk
-	Cozinha cozinha;
+	private Cozinha cozinha;
 }
