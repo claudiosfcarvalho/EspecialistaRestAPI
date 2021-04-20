@@ -24,17 +24,22 @@ public class Cozinha {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
 	long id;
-	
-	//@JsonIgnore //não mostra o campo no retorno
-	//@JsonProperty(value = "titulo") //define o nome do campo quando for serializado
+
+	// @JsonIgnore //não mostra o campo no retorno
+	// @JsonProperty(value = "titulo") //define o nome do campo quando for
+	// serializado
 	@Column(nullable = false)
 	String nome;
-	
-	// vincula o restaurante com a cozinha 
-	// aqui é uma forma de serializacao bidirecional
-	// desta forma usamos o JsonIgnore para evitar serializacao circular
-	// e entrar num loop infinito
+
+	/**
+	 * 
+	 * Campo restaurantes - relacionado com Restaurantes.cozinhaId
+	 * vincula o restaurante com a cozinha aqui é uma forma de serializacao
+	 * bidirecional desta forma usamos o JsonIgnore para evitar serializacao
+	 * circular e entrar num loop infinito essa associacao nao gera coluna na tabela
+	 * com o uso do JsonIgnore
+	 */
 	@JsonIgnore
-	@OneToMany(mappedBy = "cozinha" )
+	@OneToMany(mappedBy = "cozinha")
 	private List<Restaurante> restaurantes = new ArrayList<>();
 }
