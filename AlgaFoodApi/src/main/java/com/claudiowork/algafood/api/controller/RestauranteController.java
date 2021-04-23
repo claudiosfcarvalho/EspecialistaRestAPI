@@ -58,7 +58,7 @@ public class RestauranteController {
 		try {
 			Optional<Restaurante> restAtual = restauranteService.buscar(id);
 			if (restAtual.isPresent()) {
-				BeanUtils.copyProperties(restaurante, restAtual.get(), "id", "formasPagamento");
+				BeanUtils.copyProperties(restaurante, restAtual.get(), "id", "formasPagamento", "endereco");
 				return ResponseEntity.status(HttpStatus.OK).body(restauranteService.salvar(restAtual.get()));
 			}
 			return ResponseEntity.notFound().build();

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,6 +40,9 @@ public class Restaurante {
 	@JoinColumn(name = "cozinha_id", nullable = false)//forçar um nome específico para coluna para fk
 	private Cozinha cozinha;
 	
+	@JsonIgnore
+	@Embedded
+	private Endereco endereco;
 	/**
 	 * joincolumns define qual coluna tem relacao a referente da classe mapeada
 	 * inverseJoinColumns referencia qual coluna da outra tabela tem relacao
