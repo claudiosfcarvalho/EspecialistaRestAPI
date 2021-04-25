@@ -44,8 +44,7 @@ public class Restaurante {
 	private BigDecimal taxaFrete;
 	
 	//@JsonIgnore
-	@JsonIgnoreProperties("hibernateLazyInitializer") //inibe a serializacao do proxy com o atributo informado
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne//(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cozinha_id", nullable = false)//forçar um nome específico para coluna para fk
 	private Cozinha cozinha;
 	
@@ -79,7 +78,7 @@ public class Restaurante {
 	 * joincolumns define qual coluna tem relacao a referente da classe mapeada
 	 * inverseJoinColumns referencia qual coluna da outra tabela tem relacao
 	 */
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "restaurante_forma_pagamento",
 			joinColumns = @JoinColumn(name = "restaurante_id"),
