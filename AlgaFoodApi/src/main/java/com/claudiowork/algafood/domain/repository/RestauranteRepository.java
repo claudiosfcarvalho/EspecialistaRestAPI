@@ -16,7 +16,8 @@ public interface RestauranteRepository
 		extends CustomJpaRepository<Restaurante, Long>, RestauranteRepositoryQueries, JpaSpecificationExecutor<Restaurante> {
 
 	//o fetch força o select jpql apenas em um select, caso contrario será feito varios selects para a forma pagamento
-	@Query("from Restaurante r join r.cozinha join fetch r.formasPagamento")
+	//@Query("from Restaurante r join r.cozinha join fetch r.formasPagamento")
+	@Query("from Restaurante r join r.cozinha")
 	List<Restaurante> findAll();
 	
 	List<Restaurante> findByTaxaFreteBetween(BigDecimal taxaInicial, BigDecimal taxaFinal);
