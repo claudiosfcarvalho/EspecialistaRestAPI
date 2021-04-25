@@ -23,13 +23,13 @@ public class Cozinha {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
-	long id;
+	private long id;
 
 	// @JsonIgnore //não mostra o campo no retorno
 	// @JsonProperty(value = "titulo") //define o nome do campo quando for
 	// serializado
 	@Column(nullable = false)
-	String nome;
+	private String nome;
 
 	/**
 	 * 
