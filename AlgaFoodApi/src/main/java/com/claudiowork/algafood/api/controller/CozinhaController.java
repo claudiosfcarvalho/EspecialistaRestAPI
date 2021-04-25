@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.claudiowork.algafood.domain.model.Cozinha;
 import com.claudiowork.algafood.domain.service.CadastroCozinhaService;
@@ -60,7 +61,12 @@ public class CozinhaController {
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long id) {
-		cozinhaService.remover(id);
+		try {
+			cozinhaService.remover(id);
+		} catch (Exception e) {
+			//outra forma de tratar os erros é usando a nova classe do spring 5 ResponseStatusException
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
 	}
 
 }

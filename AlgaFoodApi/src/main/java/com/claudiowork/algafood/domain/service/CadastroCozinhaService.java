@@ -39,6 +39,7 @@ public class CadastroCozinhaService {
 
 		} catch (EmptyResultDataAccessException e) {
 			throw new EntidadeNaoEncontradaException(String.format("Cozinha de código %d não encontrada", id));
+			
 
 		} catch (DataIntegrityViolationException e) {
 			throw new EntidadeEmUsoException(
