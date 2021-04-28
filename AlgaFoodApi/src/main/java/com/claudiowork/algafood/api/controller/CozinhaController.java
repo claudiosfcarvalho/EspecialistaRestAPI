@@ -1,7 +1,6 @@
 package com.claudiowork.algafood.api.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +32,8 @@ public class CozinhaController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Cozinha> buscar(@PathVariable Long id) {
-		Optional<Cozinha> c = cozinhaService.buscar(id);
-		if (c.isPresent()) {
-			return ResponseEntity.ok(c.get());
-		}
-		return ResponseEntity.notFound().build();
+	public Cozinha buscar(@PathVariable Long id) {
+		return cozinhaService.buscarOuFalhar(id);
 	}
 
 	@PostMapping
@@ -48,13 +43,10 @@ public class CozinhaController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Cozinha> atualizar(@PathVariable Long id, @RequestBody Cozinha cozinha) {
-		Optional<Cozinha> c = cozinhaService.buscar(id);
-		if (c.isPresent()) {
-			BeanUtils.copyProperties(cozinha, c.get(), "id");
-			return ResponseEntity.status(HttpStatus.OK).body(cozinhaService.salvar(c.get()));
-		}
-		return ResponseEntity.notFound().build();
+	public Cozinha atualizar(@PathVariable Long id, @RequestBody Cozinha cozinha) {
+		Cozinha cozinhaAtual = cozinhaService.buscarOuFalhar(id);
+			BeanUtils.copyProperties(cozinha, cozinhaAtual, "id");
+			return cozinhaService.salvar(cozinhaAtual);
 	}
 
 	@DeleteMapping("/{id}")

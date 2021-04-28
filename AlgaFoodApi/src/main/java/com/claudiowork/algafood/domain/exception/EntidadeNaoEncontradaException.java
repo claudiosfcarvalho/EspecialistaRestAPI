@@ -1,20 +1,16 @@
 package com.claudiowork.algafood.domain.exception;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-//@ResponseStatus(value = HttpStatus.NOT_FOUND)
-public class EntidadeNaoEncontradaException extends ResponseStatusException {
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
+public class EntidadeNaoEncontradaException extends RuntimeException{
 
 	private static final long serialVersionUID = 1L;
 
-	public EntidadeNaoEncontradaException(HttpStatus status, String reason) {
-		super(status, reason);
-	}
-
 	
 	public EntidadeNaoEncontradaException(String mensagem) {
-		super(HttpStatus.NOT_FOUND, mensagem);
+		super(mensagem);
 	}
 
 }
