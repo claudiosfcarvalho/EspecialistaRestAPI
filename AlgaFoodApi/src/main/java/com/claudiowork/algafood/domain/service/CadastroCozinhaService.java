@@ -1,7 +1,6 @@
 package com.claudiowork.algafood.domain.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -18,6 +17,7 @@ public class CadastroCozinhaService {
 
 	private static final String MSG_COZINHA_EM_USO = "Cozinha de código %d não pode ser removida, pois está em uso";
 	private static final String MSG_COZINHA_NAO_ENCONTRADA = "Cozinha de código %d não encontrada";
+	
 	@Autowired
 	private CozinhaRepository cozinhaRepository;
 
@@ -27,10 +27,6 @@ public class CadastroCozinhaService {
 
 	public Cozinha salvar(Cozinha cozinha) {
 		return cozinhaRepository.save(cozinha);
-	}
-
-	public Optional<Cozinha> buscar(Long id) {
-		return cozinhaRepository.findById(id);
 	}
 
 	public Cozinha buscarOuFalhar(Long id) {

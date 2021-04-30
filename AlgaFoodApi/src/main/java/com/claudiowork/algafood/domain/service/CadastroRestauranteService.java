@@ -1,7 +1,6 @@
 package com.claudiowork.algafood.domain.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -12,17 +11,19 @@ import com.claudiowork.algafood.domain.exception.EntidadeEmUsoException;
 import com.claudiowork.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.claudiowork.algafood.domain.model.Cozinha;
 import com.claudiowork.algafood.domain.model.Restaurante;
-import com.claudiowork.algafood.domain.repository.CozinhaRepository;
 import com.claudiowork.algafood.domain.repository.RestauranteRepository;
 
 @Service
 public class CadastroRestauranteService {
 
+
+	private static final String MSG_RESTAURANTE_NAO_ENCONTRADO = "Restaurante com o id %d não encontrado";
+
 	@Autowired
 	private RestauranteRepository restauranteRepository;
 	
 	@Autowired
-	private CozinhaRepository cozinhaRepository;
+	private CadastroCozinhaService cozinhaService;
 	
 	public List<Restaurante> listar(){
 		return restauranteRepository.findAll();
@@ -30,15 +31,14 @@ public class CadastroRestauranteService {
 	
 	public Restaurante salvar(Restaurante restaurante) {
 		Long cozinhaId = restaurante.getCozinha().getId();
-		Cozinha cozinha = cozinhaRepository.findById(cozinhaId).orElseThrow(() ->
-				new EntidadeNaoEncontradaException(String.format("Cozinha com o id %d não encontrado", cozinhaId)));
+		Cozinha cozinha = cozinhaService.buscarOuFalhar(cozinhaId);
 		
 		restaurante.setCozinha(cozinha);
 		return restauranteRepository.save(restaurante);
 	}
 	
-	public Optional<Restaurante> buscar(Long id) {
-		return restauranteRepository.findById(id);
+	public Restaurante buscarOuFalhar(Long id) {
+		return restauranteRepository.findById(id).orElseThrow(()-> new EntidadeNaoEncontradaException(String.format(MSG_RESTAURANTE_NAO_ENCONTRADO, id)));
 	}
 	
 	public void remover(Long id) {

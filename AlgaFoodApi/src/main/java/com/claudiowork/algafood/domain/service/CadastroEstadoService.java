@@ -1,7 +1,6 @@
 package com.claudiowork.algafood.domain.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,6 +15,8 @@ import com.claudiowork.algafood.domain.repository.EstadoRepository;
 @Service
 public class CadastroEstadoService {
 
+	private static final String MSG_ESTADO_NAO_ENCONTRADO = "Estado de código %d não encontrada";
+	private static final String MSG_ESTADO_EM_USO = "Estado de código %d não pode ser removida, pois está em uso";
 	@Autowired
 	private EstadoRepository estadoRepository;
 	
@@ -27,8 +28,8 @@ public class CadastroEstadoService {
 		return estadoRepository.save(estado);
 	}
 	
-	public Optional<Estado> buscar(Long id) {
-		return estadoRepository.findById(id);
+	public Estado buscarOuFalhar(Long id) {
+		return estadoRepository.findById(id).orElseThrow(()->new EntidadeNaoEncontradaException(String.format(MSG_ESTADO_EM_USO, id)));
 	}
 	
 	public void remover(Long id) {
@@ -38,11 +39,11 @@ public class CadastroEstadoService {
 		
 		} catch (EmptyResultDataAccessException e) {
 			throw new EntidadeNaoEncontradaException(
-					String.format("Estado de código %d não encontrada", id));
+					String.format(MSG_ESTADO_NAO_ENCONTRADO, id));
 			
 		} catch (DataIntegrityViolationException e) {
 			throw new EntidadeEmUsoException(
-					String.format("Estado de código %d não pode ser removida, pois está em uso", id));
+					String.format(MSG_ESTADO_EM_USO, id));
 		}
 	}
 }
