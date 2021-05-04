@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -19,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.claudiowork.algafood.api.utils.Utilitario;
+import com.claudiowork.algafood.domain.exception.EntidadeNaoEncontradaException;
+import com.claudiowork.algafood.domain.exception.NegocioException;
 import com.claudiowork.algafood.domain.model.Restaurante;
 import com.claudiowork.algafood.domain.service.CadastroRestauranteService;
 
@@ -40,9 +41,13 @@ public class RestauranteController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Restaurante> adicionar(@RequestBody Restaurante restaurante) {
-		restaurante = restauranteService.salvar(restaurante);
-		return ResponseEntity.status(HttpStatus.CREATED).body(restaurante);
+	@ResponseStatus(HttpStatus.CREATED)
+	public Restaurante adicionar(@RequestBody Restaurante restaurante) {
+		try {
+			return restauranteService.salvar(restaurante);
+		} catch (EntidadeNaoEncontradaException e) {
+			throw new NegocioException(e.getMessage());
+		}
 	}
 
 	@PutMapping("/{id}")
@@ -50,7 +55,11 @@ public class RestauranteController {
 		Restaurante restAtual = restauranteService.buscarOuFalhar(id);
 		BeanUtils.copyProperties(restaurante, restAtual, "id", "formasPagamento", "endereco", "dataCadastro",
 				"produtos");
-		return restauranteService.salvar(restAtual);
+		try {
+			return restauranteService.salvar(restAtual);
+		} catch (EntidadeNaoEncontradaException e) {
+			throw new NegocioException(e.getMessage());
+		}
 	}
 
 	@PatchMapping("/{id}")
