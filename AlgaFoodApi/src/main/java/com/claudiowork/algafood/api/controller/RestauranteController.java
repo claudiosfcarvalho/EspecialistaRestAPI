@@ -1,27 +1,18 @@
 package com.claudiowork.algafood.api.controller;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.claudiowork.algafood.api.utils.Utilitario;
 import com.claudiowork.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.claudiowork.algafood.domain.exception.NegocioException;
 import com.claudiowork.algafood.domain.model.Restaurante;
 import com.claudiowork.algafood.domain.service.CadastroRestauranteService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/restaurantes")
@@ -63,9 +54,9 @@ public class RestauranteController {
 	}
 
 	@PatchMapping("/{id}")
-	public Restaurante atualizarParcial(@PathVariable Long id, @RequestBody Map<String, Object> campos) {
+	public Restaurante atualizarParcial(@PathVariable Long id, @RequestBody Map<String, Object> campos, HttpServletRequest request) {
 		Restaurante restAtual = restauranteService.buscarOuFalhar(id);
-		Utilitario.merge(campos, restAtual);
+		Utilitario.merge(campos, restAtual, request);
 		return atualizar(id, restAtual);
 	}
 
