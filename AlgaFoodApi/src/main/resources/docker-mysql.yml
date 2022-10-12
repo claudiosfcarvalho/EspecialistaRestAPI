@@ -11,7 +11,7 @@ services:
      environment:
        MYSQL_ROOT_PASSWORD: root
        MYSQL_DATABASE: algafood
-       MYSQL_USER: root
+       MYSQL_USER: root_user
        MYSQL_PASSWORD: root
 
 volumes:

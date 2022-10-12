@@ -1,0 +1,1081 @@
+{
+	"info": {
+		"_postman_id": "59c83897-0881-4038-afdd-73a87aefd16c",
+		"name": "Especialista Spring Rest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Cozinhas",
+			"item": [
+				{
+					"name": "listar cozinhas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/cozinhas",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cozinhas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar cozinha",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/cozinhas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cozinhas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "adicionar cozinha",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"brasileira\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cozinhas",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cozinhas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizar cozinha",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Argentina\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cozinhas/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cozinhas",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletar cozinha",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/cozinhas/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cozinhas",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Restaurantes",
+			"item": [
+				{
+					"name": "listar restaurantes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/restaurantes",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurantes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar restaurante",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/restaurantes/20",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurantes",
+								"20"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "adicionar restaurante",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Thai Gourmet\",\n    \"taxaFrete\": 10.00,\n    \"cozinha\": {\n        \"id\": 1\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/restaurantes",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurantes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizar restaurantes",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Thai Gourmet\",\n    \"taxaFrete\": 10.00,\n    \"cozinha\": {\n        \"id\": 10\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/restaurantes/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurantes",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizar restaurantes parcial",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"taxaFrete\": 9,\n    \"cozinha\" : {\"id\" : 2}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/restaurantes/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurantes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletar restaurantes",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/restaurantes/10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"restaurantes",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Estados",
+			"item": [
+				{
+					"name": "listar Estados",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/estados",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"estados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar Estado",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/estados/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"estados",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "adicionar Estado",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"nome\": \"Bahia\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/estados",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"estados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizar Estados",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Goias\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/estados/10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"estados",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletar Estados",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/estados/40",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"estados",
+								"40"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cidades",
+			"item": [
+				{
+					"name": "listar cidades",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/cidades",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cidades"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar cidades",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/cidades/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cidades",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "adicionar cidade",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"nome\": \"Salvador\",\n        \"estado\": {\n            \"id\": 45\n        }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cidades",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cidades"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizar cidades",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Uberaba\",\n    \"estado\": {\n        \"id\": 1\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cidades/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cidades",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletar restaurantes",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/cidades/10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cidades",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Testes",
+			"item": [
+				{
+					"name": "consultaPorNome",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/consultaPorNome?nome=Japonesa",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consultaPorNome"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "Japonesa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultaTodosPorNomeParcial",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/consultaTodosPorNomeParcial?nome=a",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consultaTodosPorNomeParcial"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultaTodosPorNome",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/consultaTodosPorNome?nome=Tailandesa",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consultaTodosPorNome"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "Tailandesa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultaRestaurantePorNomeECozinha",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/consultaRestaurantePorNomeECozinha?nome=a&cozinhaId=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consultaRestaurantePorNomeECozinha"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "a"
+								},
+								{
+									"key": "cozinhaId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultaRestaurantePorTaxa",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/consultaRestaurantePorTaxa?taxaInicial=1.2&taxaFinal=9.9",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consultaRestaurantePorTaxa"
+							],
+							"query": [
+								{
+									"key": "taxaInicial",
+									"value": "1.2"
+								},
+								{
+									"key": "taxaFinal",
+									"value": "9.9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultaRestaurantePorNomeECozinha",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/consultaRestaurantePorNomeECozinha?nome=a&cozinhaId=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consultaRestaurantePorNomeECozinha"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "a"
+								},
+								{
+									"key": "cozinhaId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultaPorNomeRestaurante",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/consultaPorNomeRestaurante?nome=a&cozinhaId=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consultaPorNomeRestaurante"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "a"
+								},
+								{
+									"key": "cozinhaId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultaRestaurantePorNomeFirst",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/consultaRestaurantePorNomeFirst?nome=a",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consultaRestaurantePorNomeFirst"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultaRestaurantePorNomeTop2",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/consultaRestaurantePorNomeTop2?nome=a",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consultaRestaurantePorNomeTop2"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultaRestauranteCount",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/consultaRestauranteCount?cozinhaId=4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consultaRestauranteCount"
+							],
+							"query": [
+								{
+									"key": "cozinhaId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultaRestaurantePorNomeExists",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/consultaRestaurantePorNomeExists?nome=Gendai",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consultaRestaurantePorNomeExists"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "Gendai"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Teste Retorno Location",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/cozinhas/testeLocation/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cozinhas",
+								"testeLocation",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultaRestaurantePorNomeECozinha Copy",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/consultaRestaurantePorNomeECozinha?nome=a&cozinhaId=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consultaRestaurantePorNomeECozinha"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "a"
+								},
+								{
+									"key": "cozinhaId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultaRestaurantePorTaxaENome",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/consultaRestaurantePorTaxaENome?nome=chi&taxaInicial=0",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consultaRestaurantePorTaxaENome"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "chi"
+								},
+								{
+									"key": "taxaFinal",
+									"value": "90",
+									"disabled": true
+								},
+								{
+									"key": "taxaInicial",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultaRestauranteComFreteGratis",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/consultaRestauranteComFreteGratis?nome=o",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consultaRestauranteComFreteGratis"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "o"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultaPrimeiroRestaurante",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/consultaPrimeiroRestaurante",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consultaPrimeiroRestaurante"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consultaPrimeiraCozinha",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/consultaPrimeiraCozinha",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"consultaPrimeiraCozinha"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,5 +1,6 @@
 package com.claudiowork.algafood.domain.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -17,23 +18,19 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Permissao {
+public class Grupo {
 
-    @EqualsAndHashCode.Include
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @Column(nullable = false)
-    private String nome;
-    
-    @Column(nullable = false)
-    private String descricao;
-    
-    @ManyToMany
-    @JoinTable(name = "grupo_permissao", 
-	joinColumns = @JoinColumn(name = "permissao_id"),
-	inverseJoinColumns = @JoinColumn(name = "grupo_id"))
-    private List<Grupo> grupos;
-    
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@EqualsAndHashCode.Include
+	private Long id;
+	
+	@Column(nullable = false)
+	private String nome;
+	
+	@ManyToMany
+	@JoinTable(name = "grupo_permissao", 
+		joinColumns = @JoinColumn(name = "grupo_id"),
+		inverseJoinColumns = @JoinColumn(name = "permissao_id"))
+	private List<Permissao> permissoes = new ArrayList<>();
 }

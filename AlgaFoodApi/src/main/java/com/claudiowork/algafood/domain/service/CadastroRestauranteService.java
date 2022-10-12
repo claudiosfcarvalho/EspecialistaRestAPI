@@ -8,52 +8,49 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.claudiowork.algafood.domain.exception.EntidadeEmUsoException;
-import com.claudiowork.algafood.domain.exception.EntidadeNaoEncontradaException;
+import com.claudiowork.algafood.domain.exception.RestauranteNaoEncontradoException;
 import com.claudiowork.algafood.domain.model.Cozinha;
 import com.claudiowork.algafood.domain.model.Restaurante;
-import com.claudiowork.algafood.domain.repository.CozinhaRepository;
 import com.claudiowork.algafood.domain.repository.RestauranteRepository;
 
 @Service
 public class CadastroRestauranteService {
 
+
 	@Autowired
 	private RestauranteRepository restauranteRepository;
 	
 	@Autowired
-	private CozinhaRepository cozinhaRepository;
+	private CadastroCozinhaService cozinhaService;
 	
 	public List<Restaurante> listar(){
-		return restauranteRepository.listar();
+		return restauranteRepository.findAll();
 	}
 	
 	public Restaurante salvar(Restaurante restaurante) {
 		Long cozinhaId = restaurante.getCozinha().getId();
-		Cozinha cozinha = cozinhaRepository.buscar(cozinhaId);
+		Cozinha cozinha = cozinhaService.buscarOuFalhar(cozinhaId);
 		
-		if(cozinha == null) {
-			throw new EntidadeNaoEncontradaException(String.format("Cozinha com o id %d não encontrado", cozinhaId));
-		}
-	
-		return restauranteRepository.salvar(restaurante);
+		restaurante.setCozinha(cozinha);
+		return restauranteRepository.save(restaurante);
 	}
 	
-	public Restaurante buscar(Long id) {
-		return restauranteRepository.buscar(id);
+	public Restaurante buscarOuFalhar(Long id) {
+		return restauranteRepository.findById(id).orElseThrow(()-> new RestauranteNaoEncontradoException(id));
 	}
 	
 	public void remover(Long id) {
 		try {
 			
-			restauranteRepository.remover(id);
+			restauranteRepository.deleteById(id);
 		
 		} catch (EmptyResultDataAccessException e) {
-			throw new EntidadeNaoEncontradaException(
-					String.format("Restaurante de código %d não encontrada", id));
+			throw new RestauranteNaoEncontradoException(id);
 			
 		} catch (DataIntegrityViolationException e) {
 			throw new EntidadeEmUsoException(
 					String.format("Restaurante de código %d não pode ser removida, pois está em uso", id));
 		}
 	}
+			
 }
