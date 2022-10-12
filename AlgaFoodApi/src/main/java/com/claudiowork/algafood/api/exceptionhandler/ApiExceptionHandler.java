@@ -19,11 +19,18 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+
+	public static final String MSG_ERRO_GENERICO_USUARIO_FINAL = "Ocorreu um erro interno inesperado do sistema. Tente novamente e se o problema persistir" +
+			" entre em contato com o administrador do sistema ";
 
 	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException e,
@@ -78,8 +85,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<?> handleExceptionGeneral(Exception e, WebRequest request) {
 		ProblemType problemType = ProblemType.ERRO_DE_SISTEMA;
 		String detail = String.format(
-				"Ocorreu um erro interno inesperado do sistema. Tente novamente e se o problema persistir" +
-						" entre em contato com o administrador do sistema "
+				MSG_ERRO_GENERICO_USUARIO_FINAL
 				);
 		Problem problem = createProblemBuilder(HttpStatus.INTERNAL_SERVER_ERROR, problemType, detail).build();
 		return handleExceptionInternal(e, problem, null, HttpStatus.INTERNAL_SERVER_ERROR, request);
@@ -160,7 +166,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 	private Problem.ProblemBuilder createProblemBuilder(HttpStatus status, ProblemType problemType, String detail) {
 		return Problem.builder().status(status.value()).type(problemType.getUri()).title(problemType.getTitle())
-				.detail(detail);
+				.detail(detail).userMessage(MSG_ERRO_GENERICO_USUARIO_FINAL)
+				.timestamp(LocalDateTime.now());
 	}
 
 }

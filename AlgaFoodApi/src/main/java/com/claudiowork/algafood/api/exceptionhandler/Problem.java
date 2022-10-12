@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 /**
  * Classe para implementar padrão de respostas com a RFC7807
  * @author claudio
@@ -20,5 +22,7 @@ public class Problem {
 	private String type;
 	private String title;
 	private String detail;
-	
+	private String userMessage;
+	private LocalDateTime timestamp;
+
 }
