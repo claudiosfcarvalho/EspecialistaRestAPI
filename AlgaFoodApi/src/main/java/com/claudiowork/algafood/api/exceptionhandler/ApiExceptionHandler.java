@@ -7,7 +7,9 @@ import com.fasterxml.jackson.databind.JsonMappingException.Reference;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 import org.flywaydb.core.internal.util.ExceptionUtils;
+import org.hibernate.PropertyValueException;
 import org.springframework.beans.TypeMismatchException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -132,6 +134,15 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 	}
 
+	@ExceptionHandler({PropertyValueException.class, DataIntegrityViolationException.class})
+	public ResponseEntity<?> handlePropertyValueException(Exception e, WebRequest request) {
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		ProblemType problemType = ProblemType.ERRO_NEGOCIO;
+		String detail = e.getMessage();
+		Problem problem = createProblemBuilder(status, problemType, detail).build();
+		return handleExceptionInternal(e, problem, new HttpHeaders(), status, request);
+	}
+
 	@ExceptionHandler(NegocioException.class)
 	public ResponseEntity<?> handleNegocioException(NegocioException e, WebRequest request) {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
@@ -139,7 +150,6 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		String detail = e.getMessage();
 		Problem problem = createProblemBuilder(status, problemType, detail).build();
 		return handleExceptionInternal(e, problem, new HttpHeaders(), status, request);
-
 	}
 
 	@ExceptionHandler(EntidadeEmUsoException.class)

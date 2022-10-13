@@ -1,6 +1,7 @@
 package com.claudiowork.algafood.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
@@ -21,7 +22,8 @@ public class Restaurante {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
 	private long id;
-	
+
+	@NotNull
 	@Column(nullable = false)
 	private String nome;
 	

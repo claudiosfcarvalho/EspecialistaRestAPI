@@ -5,6 +5,7 @@ import com.claudiowork.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.claudiowork.algafood.domain.exception.NegocioException;
 import com.claudiowork.algafood.domain.model.Restaurante;
 import com.claudiowork.algafood.domain.service.CadastroRestauranteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +34,7 @@ public class RestauranteController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Restaurante adicionar(@RequestBody Restaurante restaurante) {
+	public Restaurante adicionar(@RequestBody @Valid Restaurante restaurante) {
 		try {
 			return restauranteService.salvar(restaurante);
 		} catch (CozinhaNaoEncontradaException e) {
