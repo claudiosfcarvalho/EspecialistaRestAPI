@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Classe para implementar padrão de respostas com a RFC7807
@@ -24,5 +25,13 @@ public class Problem {
 	private String detail;
 	private String userMessage;
 	private LocalDateTime timestamp;
+	private List<Field> fields;
+
+	@Getter
+	@Builder
+	public static class Field {
+		private String name;
+		private String userMessage;
+	}
 
 }

@@ -10,6 +10,7 @@ public enum ProblemType {
 	ERRO_NEGOCIO("/erro-negocio","Entidade não encontrada"),
 	MENSAGEM_INCOMPREENSIVEL("/mensagem-incompreensivel","Mensagem incompreensível"),
 	PARAMETRO_INVALIDO("/parametro-invalido", "Parâmetro inválido"),
+	ARGUMENTO_INVALIDO("/argumento-invalido", "Argumento inválido"),
 	ERRO_DE_SISTEMA("/erro-de-sistema", "Erro de sistema");
 	
 	
