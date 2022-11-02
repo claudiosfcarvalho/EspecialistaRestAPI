@@ -1,33 +1,28 @@
 package com.claudiowork.algafood.domain.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
+import com.claudiowork.algafood.domain.groups_validation.Groups;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 public class Cozinha {
 
+	@NotNull(groups = Groups.CozinhaId.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
-	private long id;
+	private Long id;
 
-	// @JsonIgnore //não mostra o campo no retorno
-	// @JsonProperty(value = "titulo") //define o nome do campo quando for
-	// serializado
+	@NotBlank
 	@Column(nullable = false)
 	private String nome;
 

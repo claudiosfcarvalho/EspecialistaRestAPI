@@ -22,6 +22,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +103,21 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 				path);
 		Problem problem = createProblemBuilder(status, problemType, detail, null).build();
 		return handleExceptionInternal(e, problem, headers, status, request);
+	}
+
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex, WebRequest request) {
+		ProblemType problemType = ProblemType.ARGUMENTO_INVALIDO;
+		String detail = String.format("Um ou mais argumentos não possuem valor válido.");
+
+		List<Problem.Field> problemFields = //new ArrayList<>();
+				ex.getConstraintViolations().stream()
+								.map(fieldError -> Problem.Field.builder()
+									.name(fieldError.getPropertyPath().toString())
+									.userMessage(fieldError.getMessage()).build()).collect(Collectors.toList());
+
+		Problem problem = createProblemBuilder(HttpStatus.BAD_REQUEST, problemType, detail, problemFields).build();
+		return handleExceptionInternal(ex, problem, null, HttpStatus.BAD_REQUEST, null);
 	}
 
 	@Override
