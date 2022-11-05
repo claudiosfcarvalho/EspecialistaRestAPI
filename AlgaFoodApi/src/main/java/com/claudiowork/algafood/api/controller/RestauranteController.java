@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +36,7 @@ public class RestauranteController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Restaurante adicionar(@RequestBody @Validated(value = Groups.CozinhaId.class) Restaurante restaurante) {
+	public Restaurante adicionar(@RequestBody @Valid Restaurante restaurante) {
 		try {
 			return restauranteService.salvar(restaurante);
 		} catch (CozinhaNaoEncontradaException e) {
@@ -44,7 +45,7 @@ public class RestauranteController {
 	}
 
 	@PutMapping("/{id}")
-	public Restaurante atualizar(@PathVariable Long id, @RequestBody Restaurante restaurante) {
+	public Restaurante atualizar(@PathVariable Long id, @Valid @RequestBody Restaurante restaurante) {
 		Restaurante restAtual = restauranteService.buscarOuFalhar(id);
 		BeanUtils.copyProperties(restaurante, restAtual, "id", "formasPagamento", "endereco", "dataCadastro",
 				"produtos");

@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.claudiowork.algafood.domain.model.Cozinha;
 import com.claudiowork.algafood.domain.service.CadastroCozinhaService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/cozinhas")
 public class CozinhaController {
@@ -37,13 +39,13 @@ public class CozinhaController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Cozinha> adicionar(@RequestBody Cozinha cozinha) {
+	public ResponseEntity<Cozinha> adicionar(@Valid @RequestBody Cozinha cozinha) {
 		Cozinha c = cozinhaService.salvar(cozinha);
 		return ResponseEntity.status(HttpStatus.CREATED).body(c);
 	}
 
 	@PutMapping("/{id}")
-	public Cozinha atualizar(@PathVariable Long id, @RequestBody Cozinha cozinha) {
+	public Cozinha atualizar(@PathVariable Long id, @Valid @RequestBody Cozinha cozinha) {
 		Cozinha cozinhaAtual = cozinhaService.buscarOuFalhar(id);
 			BeanUtils.copyProperties(cozinha, cozinhaAtual, "id");
 			return cozinhaService.salvar(cozinhaAtual);
