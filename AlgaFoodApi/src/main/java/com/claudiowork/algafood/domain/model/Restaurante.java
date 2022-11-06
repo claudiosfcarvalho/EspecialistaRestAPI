@@ -27,9 +27,9 @@ public class Restaurante {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private long id;
+    private Long id;
 
-    @NotBlank(message = "O campo deve ter um valor diferente de nulo ou brancos")
+    @NotBlank
     @Column(nullable = false)
     private String nome;
 

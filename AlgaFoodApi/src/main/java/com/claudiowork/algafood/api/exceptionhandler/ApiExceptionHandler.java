@@ -9,6 +9,9 @@ import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 import org.flywaydb.core.internal.util.ExceptionUtils;
 import org.hibernate.PropertyValueException;
 import org.springframework.beans.TypeMismatchException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,6 +29,7 @@ import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
@@ -33,6 +37,9 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 	public static final String MSG_ERRO_GENERICO_USUARIO_FINAL = "Ocorreu um erro interno inesperado do sistema. Tente novamente e se o problema persistir" +
 			" entre em contato com o administrador do sistema ";
+
+	@Autowired
+	MessageSource messageSource;
 
 	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException e,
@@ -128,7 +135,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		ex.getBindingResult().getFieldErrors().stream()
 				.map( fieldError -> Problem.Field.builder()
 						.name(fieldError.getField())
-						.userMessage(fieldError.getDefaultMessage()).build()).collect(Collectors.toList());
+						.userMessage(messageSource.getMessage(fieldError, LocaleContextHolder.getLocale())).build()).collect(Collectors.toList());
 		Problem problem = createProblemBuilder(status, problemType, detail, problemFields).build();
 		return handleExceptionInternal(ex, problem, headers, status, request);
 	}
