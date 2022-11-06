@@ -1,4 +1,4 @@
-package com.claudiowork.algafood.domain.groups_validation;
+package com.claudiowork.algafood.api.config;
 
 public interface Groups {
     public interface CozinhaId {}

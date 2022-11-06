@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.claudiowork.algafood.domain.groups_validation.Groups;
+import com.claudiowork.algafood.api.config.Groups;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -26,5 +26,5 @@ public class Estado {
     @Column(nullable = false)
     @NotBlank
     private String nome;
-    
+
 }
