@@ -1,6 +1,7 @@
 package com.claudiowork.algafood.domain.model;
 
 import com.claudiowork.algafood.api.config.Groups;
+import com.claudiowork.algafood.api.config.TaxaFrete;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -33,7 +34,7 @@ public class Restaurante {
     @Column(nullable = false)
     private String nome;
 
-    @PositiveOrZero
+    @TaxaFrete
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
 
