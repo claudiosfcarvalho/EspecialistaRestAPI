@@ -1,6 +1,7 @@
 package com.claudiowork.algafood.domain.model;
 
 import com.claudiowork.algafood.api.config.Groups;
+import com.claudiowork.algafood.api.config.NameValidation;
 import com.claudiowork.algafood.api.config.TaxaFrete;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -31,6 +32,7 @@ public class Restaurante {
     private Long id;
 
     @NotBlank
+    @NameValidation(character = 3)
     @Column(nullable = false)
     private String nome;
 
