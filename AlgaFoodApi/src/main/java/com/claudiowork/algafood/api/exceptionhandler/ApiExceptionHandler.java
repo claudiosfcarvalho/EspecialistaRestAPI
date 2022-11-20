@@ -11,12 +11,14 @@ import org.hibernate.PropertyValueException;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -92,6 +94,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<?> handleExceptionGeneral(Exception e, WebRequest request) {
+		e.printStackTrace();
 		ProblemType problemType = ProblemType.ERRO_DE_SISTEMA;
 		String detail = String.format(
 				MSG_ERRO_GENERICO_USUARIO_FINAL
@@ -117,13 +120,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		ProblemType problemType = ProblemType.ARGUMENTO_INVALIDO;
 		String detail = String.format("Um ou mais argumentos não possuem valor válido.");
 
-		List<Problem.Field> problemFields = //new ArrayList<>();
+		List<Problem.Object> problemObjects = //new ArrayList<>();
 				ex.getConstraintViolations().stream()
-								.map(fieldError -> Problem.Field.builder()
+								.map(fieldError -> Problem.Object.builder()
 									.name(fieldError.getPropertyPath().toString())
 									.userMessage(fieldError.getMessage()).build()).collect(Collectors.toList());
 
-		Problem problem = createProblemBuilder(HttpStatus.BAD_REQUEST, problemType, detail, problemFields).build();
+		Problem problem = createProblemBuilder(HttpStatus.BAD_REQUEST, problemType, detail, problemObjects).build();
 		return handleExceptionInternal(ex, problem, null, HttpStatus.BAD_REQUEST, null);
 	}
 
@@ -131,15 +134,28 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
 		ProblemType problemType = ProblemType.ARGUMENTO_INVALIDO;
 		String detail = String.format("Um ou mais argumentos não possuem valor válido.");
-		List<Problem.Field> problemFields = //new ArrayList<>();
-		ex.getBindingResult().getFieldErrors().stream()
-				.map( fieldError -> Problem.Field.builder()
-						.name(fieldError.getField())
-						.userMessage(messageSource.getMessage(fieldError, LocaleContextHolder.getLocale())).build()).collect(Collectors.toList());
-		Problem problem = createProblemBuilder(status, problemType, detail, problemFields).build();
+		List<Problem.Object> problemObjects =
+		ex.getBindingResult().getAllErrors().stream()
+				.map( objectError -> {
+					var name = "";
+					if (objectError instanceof FieldError)
+						name = ((FieldError) objectError).getField();
+					else
+						name = objectError.getObjectName();
+					return Problem.Object.builder()
+							.name(name)
+							.userMessage(getMessage(objectError, LocaleContextHolder.getLocale())).build();
+				}).collect(Collectors.toList());
+		if (problemObjects.isEmpty()) {
+			ex.getMessage();
+		}
+		Problem problem = createProblemBuilder(status, problemType, detail, problemObjects).build();
 		return handleExceptionInternal(ex, problem, headers, status, request);
 	}
 
+	private String getMessage(MessageSourceResolvable fieldError, Locale local){
+		return messageSource.getMessage(fieldError, LocaleContextHolder.getLocale());
+	}
 	@Override
 	protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers,
 														HttpStatus status, WebRequest request) {
@@ -209,10 +225,10 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 		return super.handleExceptionInternal(ex, body, headers, status, request);
 	}
 
-	private Problem.ProblemBuilder createProblemBuilder(HttpStatus status, ProblemType problemType, String detail, List<Problem.Field> fields) {
+	private Problem.ProblemBuilder createProblemBuilder(HttpStatus status, ProblemType problemType, String detail, List<Problem.Object> objects) {
 		return Problem.builder().status(status.value()).type(problemType.getUri()).title(problemType.getTitle())
 				.detail(detail).userMessage(MSG_ERRO_GENERICO_USUARIO_FINAL)
-				.fields(fields)
+				.objects(objects)
 				.timestamp(LocalDateTime.now());
 	}
 

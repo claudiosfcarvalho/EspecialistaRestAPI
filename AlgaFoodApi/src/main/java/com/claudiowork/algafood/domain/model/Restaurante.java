@@ -2,6 +2,7 @@ package com.claudiowork.algafood.domain.model;
 
 import com.claudiowork.algafood.api.config.Groups;
 import com.claudiowork.algafood.api.config.NameValidation;
+import com.claudiowork.algafood.api.config.RestauranteValidation;
 import com.claudiowork.algafood.api.config.TaxaFrete;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -24,6 +25,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
+@RestauranteValidation(taxaFreteObrigatoria = true, naoValidar = {"brasileira"})
 public class Restaurante {
 
     @Id
