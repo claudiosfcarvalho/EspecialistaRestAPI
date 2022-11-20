@@ -8,6 +8,7 @@ import com.claudiowork.algafood.domain.service.CadastroRestauranteService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.SmartValidator;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,6 +59,7 @@ public class RestauranteController {
 	public Restaurante atualizarParcial(@PathVariable Long id, @RequestBody Map<String, Object> campos, HttpServletRequest request) {
 		Restaurante restAtual = restauranteService.buscarOuFalhar(id);
 		Utilitario.merge(campos, restAtual, request);
+		restauranteService.validate(restAtual, "taxaFrete");
 		return atualizar(id, restAtual);
 	}
 
